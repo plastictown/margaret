@@ -1,3 +1,5 @@
+#include "solution.h"
+
 // вычисление степени числа во врем€ компил€ции
 constexpr double int_pow(double x, int pow, double res = 1.0) {
   return (pow <= 0) ? res : int_pow(x, pow - 1, res*x);
@@ -53,4 +55,30 @@ bool first_in_second(int first, int second) {
   }
   // цифра first отсутствует в second
   return false;
+}
+
+// простое ли число?
+bool is_prime(unsigned n) {
+  if (n < 3) return true;
+  if (n % 2 == 0) return false;
+  for (unsigned long m = 3u; m <= n/2; m += 2u)
+  {
+    if (n % m == 0u)
+      return false;
+  }
+  return true;
+}
+
+// количество единиц в двоичной записи
+unsigned number_of_ones(int N) {
+  // number of bits
+  unsigned len = sizeof(N) * 8u;
+  decltype(N) mask = 1;
+  //result
+  unsigned num = 0;
+  for (unsigned i = 0; i < len; ++i) {
+    if (N & mask) ++num;
+    mask <<= 1;
+  }
+  return num;
 }
