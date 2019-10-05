@@ -58,3 +58,44 @@ namespace task2 {
   }
 
 } // !namespace task2
+
+  /********-lab_var8-**********/
+namespace lab_var8 {
+
+  double numerator(unsigned N, double x) {
+    unsigned power = N * 2u + 1u;
+    return int_pow(x, power);
+  }
+
+  unsigned long denominator(unsigned N) {
+    return fact(2 * N + 1u);
+  }
+
+  double calculate_element(unsigned N, double x) {
+    double val = numerator(N, x) / (double)denominator(N);
+    if (N % 2u != 0u) val = -val;
+    return val;
+  }
+
+  double calculate_function(
+      double x
+    , double abs_error
+    , unsigned number_max
+    , double interval_from
+    , double interval_to) {
+    if (x < interval_from || x > interval_to)
+      throw std::invalid_argument(
+        "calculate_function: x is not in the specified interval");
+    // get max value of double data type
+    double last = std::numeric_limits<double>::max();
+    double sum = 0.0;
+    for (unsigned i = 1u; i <= number_max; ++i) {
+      double current = calculate_element(i, x);
+      sum += current;
+      if (abs(current - last) <= abs_error)
+        return (x + sum); // OK
+      last = current;
+    }
+    throw std::runtime_error("the specified accuracy is not achieved");
+  }
+} // !namespace lab_var8

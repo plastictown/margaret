@@ -1,11 +1,6 @@
 #include "solution.h"
 
-// вычисление степени числа во время компиляции
-constexpr double int_pow(double x, int pow, double res = 1.0) {
-  return (pow <= 0) ? res : int_pow(x, pow - 1, res*x);
-}
-
-// вычисление степени числа во время исполнения
+// вычисление степени числа
 double int_pow(double x, unsigned pow) {
   // для степеней 0 и 1 результат готов
   if (pow == 0.0) return 1.0;
@@ -15,6 +10,16 @@ double int_pow(double x, unsigned pow) {
   // перемножаем x pow раз
   for (auto i = 0u; i < pow; ++i) {
     res *= x;
+  }
+  return res;
+}
+
+// Вычисление факториала
+unsigned long fact(unsigned N) {
+  unsigned long res = 1ul;
+  while (N > 1) {
+    res *= N;
+    --N;
   }
   return res;
 }
@@ -59,9 +64,9 @@ bool first_in_second(int first, int second) {
 
 // простое ли число?
 bool is_prime(unsigned n) {
-  if (n < 3) return true;
-  if (n % 2 == 0) return false;
-  for (unsigned long m = 3u; m <= n/2; m += 2u)
+  if (n < 3u) return true;
+  if (n % 2u == 0) return false;
+  for (unsigned long m = 3u; m <= n/2u; m += 2u)
   {
     if (n % m == 0u)
       return false;
@@ -75,8 +80,8 @@ unsigned number_of_ones(int N) {
   unsigned len = sizeof(N) * 8u;
   decltype(N) mask = 1;
   //result
-  unsigned num = 0;
-  for (unsigned i = 0; i < len; ++i) {
+  unsigned num = 0u;
+  for (unsigned i = 0u; i < len; ++i) {
     if (N & mask) ++num;
     mask <<= 1;
   }
